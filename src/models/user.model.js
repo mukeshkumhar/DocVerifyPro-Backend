@@ -23,6 +23,17 @@ const userSchema = new mongoose.Schema({
         trim: true,
         index: true
     },
+
+    resumeDetail: [{
+        type: Schema.Types.ObjectId,
+        ref: "Resume"
+    }],
+
+    webDetail: [{
+        type: Schema.Types.ObjectId,
+        ref: "WebCheck"
+    }],
+
     password: {
         type: String,
         required: [true, "Password is required"]
