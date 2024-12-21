@@ -23,13 +23,13 @@ app.use((req, res, next) => {
 
 // routes import 
 import userRouter from './routes/user.routes.js'
-// import videoRouter from './routes/video.routes.js'
+import resumeRouter from './routes/resume.routes.js'
 
 
 
 //routes declaration 
 app.use("/api/v1/users", userRouter)
-// app.use("/api/v1/videos", videoRouter)
+app.use("/api/v1/resume", resumeRouter)
 
 
 export { app }
