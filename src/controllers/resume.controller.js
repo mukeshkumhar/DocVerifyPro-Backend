@@ -40,10 +40,10 @@ const resumeDetails = asyncHandler(async (req, res) => {
 
     return res
         .status(201)
-        .json(new ApiResponse(200, { createdResume: createdResume }, "Resume created successfully"));
+        .json(new ApiResponse(200, createdResume , "Resume created successfully"));
 })
 
-const ProjectDetails = asyncHandler(async (req, res) => {
+const AddProject = asyncHandler(async (req, res) => {
     const { projectName, projectSummary, resumeId } = req.body;
 
     const resume = await Resume.findById(resumeId)
@@ -57,8 +57,22 @@ const ProjectDetails = asyncHandler(async (req, res) => {
     await resume.save();
     return res
         .status(201)
-        .json(new ApiResponse(200, { resume: resume }, "project added successfully"));
+        .json(new ApiResponse(200, resume , "project added successfully"));
+})
+
+const GetProjects = asyncHandler(async (req, res) => {
+    const ownerId = req.user._id
+    const resume = await Resume.find({ownerId})
+
+    if (!resume) {
+        throw new ApiError(404, "Resume not found");
+    }
+
+    return res 
+    .status(200)
+    .json(new ApiResponse(200, resume, "Resume fetched successfully"));
+
 })
 
 
-export { resumeDetails, ProjectDetails };  // export the function to use in other files  // export
+export { resumeDetails, AddProject, GetProjects };  // export the function to use in other files  // export
